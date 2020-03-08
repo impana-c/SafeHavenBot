@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.impanac.safehavenbot"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "ClientAccessToken", '"19cca4a2546b41fd937b2b9d7718c662"'
+            resValue 'string', "ClientAccessToken", '"19cca4a2546b41fd937b2b9d7718c662"'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "ClientAccessToken", '"19cca4a2546b41fd937b2b9d7718c662"'
+            resValue 'string', "ClientAccessToken", '"19cca4a2546b41fd937b2b9d7718c662"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // Java V2
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
+    }
+    buildToolsVersion = '28.0.3'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Dialogflow SDK dependencies
+    implementation 'ai.api:sdk:2.0.7@aar'
+    implementation 'ai.api:libai:1.6.12'
+
+    // Java V2
+    implementation 'com.google.cloud:google-cloud-dialogflow:0.67.0-alpha'
+    // for Remote Procedure Call to avoid "No functional channel service provider found" error while creating SessionsClient
+    implementation 'io.grpc:grpc-okhttp:1.15.1'
+}
